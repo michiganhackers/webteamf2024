@@ -1,0 +1,23 @@
+name: Update Index
+
+on:
+  push:
+    paths:
+      - 'students/**'
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update index.html
+      run: |
+        echo "Updating index.html"
+        # The content is dynamically loaded via JavaScript, so we don't need to modify the file
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add index.html
+        git commit -m "Update index.html" || echo "No changes to commit"
+        git push
