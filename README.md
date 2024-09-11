@@ -46,7 +46,7 @@ Welcome to our class project! This guide will walk you through the process of ad
    ```
 3. Clone the repository:
    ```
-   git clone https://github.com/[INSTRUCTOR_USERNAME]/[REPOSITORY_NAME].git
+   git clone https://github.com/michiganhackers/webteamf2024.git
    ```
    (Your instructor will provide the actual URL)
 4. Move into the project folder:
@@ -59,7 +59,7 @@ Welcome to our class project! This guide will walk you through the process of ad
 1. Open Visual Studio Code
 2. Go to File > Open Folder and select the repository folder you just cloned
 3. In VS Code, right-click on the `students` folder and select "New Folder"
-4. Name the folder with your full name (e.g., "john-doe")
+4. Name the folder with your uniquename
 5. Right-click on your new folder and select "New File"
 6. Name the file `index.html`
 7. Copy and paste this starter code into your `index.html`:
@@ -80,8 +80,7 @@ Welcome to our class project! This guide will walk you through the process of ad
    </html>
    ```
 
-8. Replace "[Your Name]" with your actual name
-9. Add more content to your page as desired
+8. Add more content to your page as desired
 
 ## Step 4: Save Your Changes with Git
 
@@ -100,7 +99,7 @@ Welcome to our class project! This guide will walk you through the process of ad
 ## Step 6: View Your Page on the Class Website
 
 1. Wait a few minutes for the changes to be processed
-2. Go to `https://[INSTRUCTOR_USERNAME].github.io/[REPOSITORY_NAME]/`
+2. Go to `https://michiganhackers.github.io/webteamf2024/`
 3. You should see a link to your page on the homepage
 
 ## Updating Your Page
@@ -116,7 +115,7 @@ To make changes to your page:
 
 If you run into any issues:
 1. Check that you've followed each step carefully
-2. Ask a classmate if they've encountered a similar issue
-3. If you're still stuck, don't hesitate to ask your instructor for help
+2. Ask another member if they've encountered a similar issue
+3. If you're still stuck, don't hesitate to ask your lead for help
 
 Remember, everyone starts as a beginner. Don't be afraid to ask questions and keep practicing!
