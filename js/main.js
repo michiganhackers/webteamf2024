@@ -8,7 +8,7 @@ async function getStudentPages() {
             const card = document.createElement('div');
             card.className = 'student-card';
             const link = document.createElement('a');
-            link.href = `students/${item.name}`;
+            link.href = `students/${item.name}/index.html`;  // Add index.html to the link
             link.textContent = item.name;
             card.appendChild(link);
             studentList.appendChild(card);

@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+body {
+    font-family: 'VT323', monospace;
+    background-color: #000080; /* Navy blue background */
+    color: #00FF00; /* Bright green text */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #000000; /* Black container background */
+    border: 5px solid #FF00FF; /* Magenta border */
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px #FF00FF; /* Magenta text shadow */
+}
+
+.retro-text {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.marquee {
+    background-color: #FFFF00; /* Yellow background */
+    color: #000000; /* Black text */
+    padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.marquee p {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+}
+
+.intro {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.gif-container {
+    background-color: #FFFFFF; /* White background for GIF */
+    padding: 20px;
+    border: 3px dashed #FF00FF; /* Magenta dashed border */
+}
+
+.center-gif {
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.8em;
+    color: #FFA500; /* Orange footer text */
+}
+
+/* Add some retro-style links */
+a {
+    color: #00FFFF; /* Cyan links */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #FF00FF; /* Magenta on hover */
+    text-decoration: underline;
+}
