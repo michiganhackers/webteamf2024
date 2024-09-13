@@ -1,0 +1,10 @@
+.bold{
+    font-weight: bold;
+}
+.red{
+    color: red;
+}
+body{
+    background-image: url("dannyDevitopt2.jpg");
+}
+p.dotted{border-style: dotted;}
