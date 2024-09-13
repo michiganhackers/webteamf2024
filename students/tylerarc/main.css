@@ -1,0 +1,23 @@
+
+
+h1{
+    color: navy;
+    font-family: "Copperplate"
+}
+
+p1{
+    color: violet;
+    font-family: "Copperplate" 
+}
+
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+  }
+
+  img{
+    width: 100 px;
+    height: auto;
+  }
