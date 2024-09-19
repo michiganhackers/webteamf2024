@@ -3,11 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sam's Page</title>
+    <title>Jeopardy Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #060CE9;
+            color: white;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .category {
+            background-color: #060CE9;
+            padding: 10px;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+        .question {
+            background-color: #060CE9;
+            padding: 20px;
+            font-size: 1.5em;
+            border: 2px solid white;
+            cursor: pointer;
+        }
+        .question:hover {
+            background-color: #0000FF;
+        }
+        #score {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        #question-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #060CE9;
+            padding: 20px;
+            border: 2px solid white;
+            z-index: 1000;
+        }
+        #answer-input {
+            margin-top: 10px;
+            padding: 5px;
+        }
+        #submit-answer {
+            margin-top: 10px;
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Sam's Page</h1>
-    <p>This is my page for the web development class project.</p>
-    <p>Hello_World</p>
+    <h1>Jeopardy!</h1>
+    <div class="game-board">
+        <div class="category">General Knowledge</div>
+        <div class="category">Math</div>
+        <div class="category">Literature</div>
+        <div class="category">Science</div>
+        <div class="category">Chemistry</div>
+
+        <div class="question" data-value="100">$100</div>
+        <div class="question" data-value="100">$100</div>
+        <div class="question" data-value="100">$100</div>
+        <div class="question" data-value="100">$100</div>
+        <div class="question" data-value="100">$100</div>
+
+        <div class="question" data-value="200">$200</div>
+        <div class="question" data-value="200">$200</div>
+        <div class="question" data-value="200">$200</div>
+        <div class="question" data-value="200">$200</div>
+        <div class="question" data-value="200">$200</div>
+
+        <div class="question" data-value="300">$300</div>
+        <div class="question" data-value="300">$300</div>
+        <div class="question" data-value="300">$300</div>
+        <div class="question" data-value="300">$300</div>
+        <div class="question" data-value="300">$300</div>
+
+        <div class="question" data-value="400">$400</div>
+        <div class="question" data-value="400">$400</div>
+        <div class="question" data-value="400">$400</div>
+        <div class="question" data-value="400">$400</div>
+        <div class="question" data-value="400">$400</div>
+
+        <div class="question" data-value="500">$500</div>
+        <div class="question" data-value="500">$500</div>
+        <div class="question" data-value="500">$500</div>
+        <div class="question" data-value="500">$500</div>
+        <div class="question" data-value="500">$500</div>
+    </div>
+    <div id="score">Score: $0</div>
+
+    <div id="question-modal">
+        <p id="question-text"></p>
+        <input type="text" id="answer-input" placeholder="Your answer">
+        <button id="submit-answer">Submit</button>
+    </div>
+
+    <script>
+        const questions = [
+            {"question": "What is the capital of France?", "answer": "Paris", "value": 100},
+            {"question": "What is 2 + 2?", "answer": "4", "value": 200},
+            {"question": "Who wrote Romeo and Juliet?", "answer": "Shakespeare", "value": 300},
+            {"question": "What is the largest planet in our solar system?", "answer": "Jupiter", "value": 400},
+            {"question": "What is the chemical symbol for water?", "answer": "H2O", "value": 500}
+        ];
+
+        const questionElements = document.querySelectorAll('.question');
+        const questionModal = document.getElementById('question-modal');
+        const questionText = document.getElementById('question-text');
+        const answerInput = document.getElementById('answer-input');
+        const submitAnswer = document.getElementById('submit-answer');
+        const scoreElement = document.getElementById('score');
+
+        let score = 0;
+        let currentQuestion = null;
+
+        questionElements.forEach((element, index) => {
+            element.addEventListener('click', () => {
+                if (element.textContent !== 'X') {
+                    currentQuestion = questions[index % 5];
+                    questionText.textContent = currentQuestion.question;
+                    questionModal.style.display = 'block';
+                    answerInput.value = '';
+                    answerInput.focus();
+                }
+            });
+        });
+
+        submitAnswer.addEventListener('click', () => {
+            const userAnswer = answerInput.value.trim().toLowerCase();
+            const correctAnswer = currentQuestion.answer.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                score += currentQuestion.value;
+                alert('Correct!');
+            } else {
+                score -= currentQuestion.value;
+                alert(`Incorrect. The correct answer is: ${currentQuestion.answer}`);
+            }
+
+            scoreElement.textContent = `Score: $${score}`;
+            questionModal.style.display = 'none';
+
+            const questionElement = document.querySelector(`.question[data-value="${currentQuestion.value}"]`);
+            questionElement.textContent = 'X';
+            questionElement.style.backgroundColor = '#000';
+            questionElement.style.cursor = 'default';
+        });
+    </script>
 </body>
 </html>
