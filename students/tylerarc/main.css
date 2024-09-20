@@ -1,23 +1,34 @@
 
 
 h1{
-    color: navy;
+    color: white;
     font-family: "Copperplate"
 }
 
-p1{
+h1{
+    background-color:black
+}
+
+
+
+.Title{
     color: violet;
     font-family: "Copperplate" 
 }
 
-div.gallery {
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 180px;
-  }
 
-  img{
-    width: 100 px;
+
+img{
+    width: 150px;
     height: auto;
-  }
+}
+
+.Oasis{
+    width: 150px;
+    height: auto;
+}
+
+.Jamiroquai{
+    width: 150px;
+    height: 150px;
+}
