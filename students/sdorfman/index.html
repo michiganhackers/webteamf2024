@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeopardy Game</title>
+    <title>Baseball Jeopardy</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,13 +64,13 @@
     </style>
 </head>
 <body>
-    <h1>Jeopardy!</h1>
+    <h1>Baseball Jeopardy!</h1>
     <div class="game-board">
-        <div class="category">General Knowledge</div>
-        <div class="category">Math</div>
-        <div class="category">Literature</div>
-        <div class="category">Science</div>
-        <div class="category">Chemistry</div>
+        <div class="category">Team Mascots</div>
+        <div class="category">The Old Days</div>
+        <div class="category">Stats</div>
+        <div class="category">Nicknames</div>
+        <div class="category">Baseball Movies</div>
 
         <div class="question" data-value="100">$100</div>
         <div class="question" data-value="100">$100</div>
@@ -111,12 +111,57 @@
     </div>
 
     <script>
-        const questions = [
-            {"question": "What is the capital of France?", "answer": "Paris", "value": 100},
-            {"question": "What is 2 + 2?", "answer": "4", "value": 200},
-            {"question": "Who wrote Romeo and Juliet?", "answer": "Shakespeare", "value": 300},
-            {"question": "What is the largest planet in our solar system?", "answer": "Jupiter", "value": 400},
-            {"question": "What is the chemical symbol for water?", "answer": "H2O", "value": 500}
+        const categories = [
+            {
+                name: "Team Mascots",
+                questions: [
+                    {question: "The mascot of the baseball team that plays in Detroit", answer: "Tigers", value: 100},
+                    {question: "The former mascot of the franchise currently known as the Washington Nationals", answer: "Expos", value: 200},
+                    {question: "This mascot has been around for a long time, some of its cities are Philadelphia, Kansas City, and Las Vegas", answer: "Athletics", value: 300},
+                    {question: "One of the most recent expansion teams in the MLB, this now shortened mascot was changed in 2007", answer: "Devil Rays", value: 400},
+                    {question: "The oldest continuous MLB franchise mascot", answer: "Braves", value: 500}
+                ]
+            },
+            {
+                name: "The Old Days",
+                questions: [
+                    {question: "The award named after the winningest pitcher of the 1900s decade, with 230 wins between 1900-1909", answer: "Cy Young", value: 100},
+                    {question: "Babe Ruth's original position when he started his Major League career in 1914", answer: "Pitcher", value: 200},
+                    {question: "Protective gear that became mandatory after Ray Chapman was hit in the head and killed in 1920", answer: "Helmet", value: 300},
+                    {question: "The year the Chicago Cubs last won the World Series before their 108-year drought (ended within the last 10 years)", answer: "1908", value: 400},
+                    {question: "A Civil War officer long thought to have created the game of baseball", answer: "Abner Doubleday", value: 500}
+                ]
+            },
+            {
+                name: "Stats",
+                questions: [
+                    {question: "This stat measures the number of runs a pitcher gives up per nine innings", answer: "ERA", value: 100},
+                    {question: "This stat measures the percent of the time a hitter reaches base safely", answer: "OBP", value: 200},
+                    {question: "Barry Bonds is the MLB all time leader in this stat with 688 (NOT HOMERUNS)", answer: "IBB", value: 300},
+                    {question: "This stat (which can be used for both pitchers and hitters) is a measure of luck", answer: "BABIP", value: 400},
+                    {question: "This stat measures how productive a hitter is expected to be when they make contact with the ball", answer: "xwOBAcon", value: 500}
+                ]
+            },
+            {
+                name: "Nicknames",
+                questions: [
+                    {question: "George Herman ___ Ruth is often regarded as the GOAT of baseball", answer: "Babe", value: 100},
+                    {question: "Leroy ___ Paige was a pioneer in the Negro Leagues and pitched in MLB at age 46", answer: "Satchel", value: 200},
+                    {question: "Pablo ___ Sandoval was nicknamed after an animated movie franchise about a fighting black and white mammal", answer: "Diamond", value: 300},
+                    {question: "___ Joe Jackson was banned for his part in a gambling scandal in 1919", answer: "Shoeless", value: 400},
+                    {question: "Mordecai ___ Brown lost a digit in a childhood farming accident", answer: "Three-Fingered", value: 500}
+                ]
+            },
+            {
+                name: "Baseball Movies",
+                questions: [
+                    {question: "This kids movie brought us iconic quotes such as 'You're killing me Smalls!'", answer: "The Sandlot", value: 100},
+                    {question: "Actor James Earl Jones makes an iconic appearance in this movie about the 1919 Chicago 'Black Sox'", answer: "Field of Dreams", value: 200},
+                    {question: "This nerdy film portrays the financial strategy of the early 2000s Oakland A's", answer: "Moneyball", value: 300},
+                    {question: "12 year old Henry Rowengartner discovers his superpower and plays for the Chicago Cubs in this movie", answer: "Rookie of the Year", value: 400},
+                    {question: "This number-named movie follows the story of a trailblazer and the greatest MLB player to come out of UCLA", answer: "42", value: 500}
+                ]
+            }
         ];
 
         const questionElements = document.querySelectorAll('.question');
