@@ -3,59 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baseball Jeopardy</title>
+    <title>Baseball Jeopardy!</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #060CE9;
-            color: white;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
         }
-        h1 {
-            font-size: 3em;
+        table {
+            border-collapse: collapse;
             margin-bottom: 20px;
         }
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            max-width: 800px;
-            margin: 0 auto;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            width: 120px;
         }
-        .category {
-            background-color: #060CE9;
-            padding: 10px;
-            font-weight: bold;
-            border: 2px solid white;
+        th {
+            background-color: #0066cc;
+            color: white;
         }
-        .question {
-            background-color: #060CE9;
-            padding: 20px;
-            font-size: 1.5em;
-            border: 2px solid white;
+        td {
+            background-color: #0066cc;
+            color: #ffd700;
             cursor: pointer;
+            font-weight: bold;
         }
-        .question:hover {
-            background-color: #0000FF;
+        td:hover {
+            background-color: #004080;
         }
         #score {
-            font-size: 1.5em;
-            margin-top: 20px;
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-        #question-modal {
+        #modal {
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #060CE9;
-            padding: 20px;
-            border: 2px solid white;
-            z-index: 1000;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
         }
-        #answer-input {
-            margin-top: 10px;
-            padding: 5px;
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
         }
         #submit-answer {
             margin-top: 10px;
@@ -65,147 +66,144 @@
 </head>
 <body>
     <h1>Baseball Jeopardy!</h1>
-    <div class="game-board">
-        <div class="category">Team Mascots</div>
-        <div class="category">The Old Days</div>
-        <div class="category">Stats</div>
-        <div class="category">Nicknames</div>
-        <div class="category">Baseball Movies</div>
-
-        <div class="question" data-value="100">$100</div>
-        <div class="question" data-value="100">$100</div>
-        <div class="question" data-value="100">$100</div>
-        <div class="question" data-value="100">$100</div>
-        <div class="question" data-value="100">$100</div>
-
-        <div class="question" data-value="200">$200</div>
-        <div class="question" data-value="200">$200</div>
-        <div class="question" data-value="200">$200</div>
-        <div class="question" data-value="200">$200</div>
-        <div class="question" data-value="200">$200</div>
-
-        <div class="question" data-value="300">$300</div>
-        <div class="question" data-value="300">$300</div>
-        <div class="question" data-value="300">$300</div>
-        <div class="question" data-value="300">$300</div>
-        <div class="question" data-value="300">$300</div>
-
-        <div class="question" data-value="400">$400</div>
-        <div class="question" data-value="400">$400</div>
-        <div class="question" data-value="400">$400</div>
-        <div class="question" data-value="400">$400</div>
-        <div class="question" data-value="400">$400</div>
-
-        <div class="question" data-value="500">$500</div>
-        <div class="question" data-value="500">$500</div>
-        <div class="question" data-value="500">$500</div>
-        <div class="question" data-value="500">$500</div>
-        <div class="question" data-value="500">$500</div>
-    </div>
+    <table id="jeopardy-board">
+        <tr>
+            <th>Team Mascots</th>
+            <th>The Old Days</th>
+            <th>Stats</th>
+            <th>Nicknames</th>
+            <th>Baseball Movies</th>
+        </tr>
+        <tr>
+            <td>$100</td>
+            <td>$100</td>
+            <td>$100</td>
+            <td>$100</td>
+            <td>$100</td>
+        </tr>
+        <tr>
+            <td>$200</td>
+            <td>$200</td>
+            <td>$200</td>
+            <td>$200</td>
+            <td>$200</td>
+        </tr>
+        <tr>
+            <td>$300</td>
+            <td>$300</td>
+            <td>$300</td>
+            <td>$300</td>
+            <td>$300</td>
+        </tr>
+        <tr>
+            <td>$400</td>
+            <td>$400</td>
+            <td>$400</td>
+            <td>$400</td>
+            <td>$400</td>
+        </tr>
+        <tr>
+            <td>$500</td>
+            <td>$500</td>
+            <td>$500</td>
+            <td>$500</td>
+            <td>$500</td>
+        </tr>
+    </table>
     <div id="score">Score: $0</div>
-
-    <div id="question-modal">
-        <p id="question-text"></p>
-        <input type="text" id="answer-input" placeholder="Your answer">
-        <button id="submit-answer">Submit</button>
+    <div id="modal">
+        <div class="modal-content">
+            <p id="question"></p>
+            <input type="text" id="answer-input" placeholder="Your answer">
+            <button id="submit-answer">Submit</button>
+        </div>
     </div>
 
     <script>
-        const categories = [
-            {
-                name: "Team Mascots",
-                questions: [
-                    {question: "The mascot of the baseball team that plays in Detroit", answer: "Tigers", value: 100},
-                    {question: "The former mascot of the franchise currently known as the Washington Nationals", answer: "Expos", value: 200},
-                    {question: "This mascot has been around for a long time, some of its cities are Philadelphia, Kansas City, and Las Vegas", answer: "Athletics", value: 300},
-                    {question: "One of the most recent expansion teams in the MLB, this now shortened mascot was changed in 2007", answer: "Devil Rays", value: 400},
-                    {question: "The oldest continuous MLB franchise mascot", answer: "Braves", value: 500}
-                ]
+        const jeopardyData = {
+            "Team Mascots": {
+                100: { question: "The mascot of the baseball team that plays in Detroit", answer: "Tigers"},
+                200: { question: "The former mascot of the franchise currently known as the Washington Nationals", answer: "Expos"},
+                300: { question: "This mascot has been around for a long time, some of its cities are Philadelphia, Kansas City, and Las Vegas", answer: "Athletics"},
+                400: { question: "One of the most recent expansion teams in the MLB, this now shortened mascot was changed in 2007", answer: "Devil Rays"},
+                500: { question: "The oldest continuous MLB franchise mascot", answer: "Braves"}
             },
-            {
-                name: "The Old Days",
-                questions: [
-                    {question: "The award named after the winningest pitcher of the 1900s decade, with 230 wins between 1900-1909", answer: "Cy Young", value: 100},
-                    {question: "Babe Ruth's original position when he started his Major League career in 1914", answer: "Pitcher", value: 200},
-                    {question: "Protective gear that became mandatory after Ray Chapman was hit in the head and killed in 1920", answer: "Helmet", value: 300},
-                    {question: "The year the Chicago Cubs last won the World Series before their 108-year drought (ended within the last 10 years)", answer: "1908", value: 400},
-                    {question: "A Civil War officer long thought to have created the game of baseball", answer: "Abner Doubleday", value: 500}
-                ]
+            "The Old Days": {
+                100: { question: "The award named after the winningest pitcher of the 1900s decade, with 230 wins between 1900-1909", answer: "Cy Young"},
+                200: { question: "Babe Ruth's original position when he started his Major League career in 1914", answer: "Pitcher"},
+                300: { question: "Protective gear that became mandatory after Ray Chapman was hit in the head and killed in 1920", answer: "Helmet"},
+                400: { question: "The year the Chicago Cubs last won the World Series before their 108-year drought (ended within the last 10 years)", answer: "1908"},
+                500: { question: "A Civil War officer long thought to have created the game of baseball", answer: "Abner Doubleday"}
             },
-            {
-                name: "Stats",
-                questions: [
-                    {question: "This stat measures the number of runs a pitcher gives up per nine innings", answer: "ERA", value: 100},
-                    {question: "This stat measures the percent of the time a hitter reaches base safely", answer: "OBP", value: 200},
-                    {question: "Barry Bonds is the MLB all time leader in this stat with 688 (NOT HOMERUNS)", answer: "IBB", value: 300},
-                    {question: "This stat (which can be used for both pitchers and hitters) is a measure of luck", answer: "BABIP", value: 400},
-                    {question: "This stat measures how productive a hitter is expected to be when they make contact with the ball", answer: "xwOBAcon", value: 500}
-                ]
+            "Stats": {
+                100: { question: "This stat measures the number of runs a pitcher gives up per nine innings", answer: "ERA"},
+                200: { question: "This stat measures the percent of the time a hitter reaches base safely", answer: "OBP"},
+                300: { question: "Barry Bonds is the MLB all time leader in this stat with 688 (NOT HOMERUNS)", answer: "IBB"},
+                400: { question: "This stat (which can be used for both pitchers and hitters) is a measure of luck", answer: "BABIP"},
+                500: { question: "This stat measures how productive a hitter is expected to be when they make contact with the ball", answer: "xwOBAcon"}
             },
-            {
-                name: "Nicknames",
-                questions: [
-                    {question: "George Herman ___ Ruth is often regarded as the GOAT of baseball", answer: "Babe", value: 100},
-                    {question: "Leroy ___ Paige was a pioneer in the Negro Leagues and pitched in MLB at age 46", answer: "Satchel", value: 200},
-                    {question: "Pablo ___ Sandoval was nicknamed after an animated movie franchise about a fighting black and white mammal", answer: "Diamond", value: 300},
-                    {question: "___ Joe Jackson was banned for his part in a gambling scandal in 1919", answer: "Shoeless", value: 400},
-                    {question: "Mordecai ___ Brown lost a digit in a childhood farming accident", answer: "Three-Fingered", value: 500}
-                ]
+            "Nicknames": {
+                100: { question: "George Herman ___ Ruth is often regarded as the GOAT of baseball", answer: "Babe"},
+                200: { question: "Leroy ___ Paige was a pioneer in the Negro Leagues and pitched in MLB at age 46", answer: "Satchel"},
+                300: { question: "Pablo ___ Sandoval was nicknamed after an animated movie franchise about a fighting black and white mammal", answer: "Diamond"},
+                400: { question: "___ Joe Jackson was banned for his part in a gambling scandal in 1919", answer: "Shoeless"},
+                500: { question: "Mordecai ___ Brown lost a digit in a childhood farming accident", answer: "Three-Fingered"}
             },
-            {
-                name: "Baseball Movies",
-                questions: [
-                    {question: "This kids movie brought us iconic quotes such as 'You're killing me Smalls!'", answer: "The Sandlot", value: 100},
-                    {question: "Actor James Earl Jones makes an iconic appearance in this movie about the 1919 Chicago 'Black Sox'", answer: "Field of Dreams", value: 200},
-                    {question: "This nerdy film portrays the financial strategy of the early 2000s Oakland A's", answer: "Moneyball", value: 300},
-                    {question: "12 year old Henry Rowengartner discovers his superpower and plays for the Chicago Cubs in this movie", answer: "Rookie of the Year", value: 400},
-                    {question: "This number-named movie follows the story of a trailblazer and the greatest MLB player to come out of UCLA", answer: "42", value: 500}
-                ]
+            "Baseball Movies": {
+                100: { question: "This kids movie brought us iconic quotes such as 'You're killing me Smalls!'", answer: "The Sandlot"},
+                200: { question: "Actor James Earl Jones makes an iconic appearance in this movie about the 1919 Chicago 'Black Sox'", answer: "Field of Dreams"},
+                300: { question: "This nerdy film portrays the financial strategy of the early 2000s Oakland A's", answer: "Moneyball"},
+                400: { question: "12 year old Henry Rowengartner discovers his superpower and plays for the Chicago Cubs in this movie", answer: "Rookie of the Year"},
+                500: { question: "This number-named movie follows the story of a trailblazer and the greatest MLB player to come out of UCLA", answer: "42"}
             }
-        ];
-
-        const questionElements = document.querySelectorAll('.question');
-        const questionModal = document.getElementById('question-modal');
-        const questionText = document.getElementById('question-text');
-        const answerInput = document.getElementById('answer-input');
-        const submitAnswer = document.getElementById('submit-answer');
-        const scoreElement = document.getElementById('score');
+        };
 
         let score = 0;
+        const scoreElement = document.getElementById('score');
+        const modal = document.getElementById('modal');
+        const questionElement = document.getElementById('question');
+        const answerInput = document.getElementById('answer-input');
+        const submitButton = document.getElementById('submit-answer');
         let currentQuestion = null;
 
-        questionElements.forEach((element, index) => {
-            element.addEventListener('click', () => {
-                if (element.textContent !== 'X') {
-                    currentQuestion = questions[index % 5];
-                    questionText.textContent = currentQuestion.question;
-                    questionModal.style.display = 'block';
-                    answerInput.value = '';
-                    answerInput.focus();
-                }
-            });
+        document.querySelectorAll('#jeopardy-board td').forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
         });
 
-        submitAnswer.addEventListener('click', () => {
+        function handleCellClick(event) {
+            const cell = event.target;
+            const value = parseInt(cell.textContent.replace('$', ''));
+            const category = cell.closest('tr').cells[cell.cellIndex].closest('table').rows[0].cells[cell.cellIndex].textContent;
+
+            currentQuestion = jeopardyData[category][value];
+            questionElement.textContent = currentQuestion.question;
+            modal.style.display = 'block';
+            answerInput.value = '';
+            cell.style.backgroundColor = '#004080';
+            cell.style.pointerEvents = 'none';
+        }
+
+        submitButton.addEventListener('click', () => {
             const userAnswer = answerInput.value.trim().toLowerCase();
             const correctAnswer = currentQuestion.answer.toLowerCase();
 
             if (userAnswer === correctAnswer) {
-                score += currentQuestion.value;
+                score += parseInt(currentQuestion.value);
                 alert('Correct!');
             } else {
-                score -= currentQuestion.value;
-                alert(`Incorrect. The correct answer is: ${currentQuestion.answer}`);
+                score -= parseInt(currentQuestion.value);
+                alert(`Sorry, the correct answer was: ${currentQuestion.answer}`);
             }
 
             scoreElement.textContent = `Score: $${score}`;
-            questionModal.style.display = 'none';
-
-            const questionElement = document.querySelector(`.question[data-value="${currentQuestion.value}"]`);
-            questionElement.textContent = 'X';
-            questionElement.style.backgroundColor = '#000';
-            questionElement.style.cursor = 'default';
+            modal.style.display = 'none';
         });
+
+        window.onclick = (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
     </script>
 </body>
 </html>
