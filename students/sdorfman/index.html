@@ -3,11 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sam's Page</title>
+    <title>Baseball Jeopardy!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+            width: 120px;
+        }
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
+        td {
+            background-color: #0066cc;
+            color: #ffd700;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        td:hover {
+            background-color: #004080;
+        }
+        #score {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        #submit-answer {
+            margin-top: 10px;
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Sam's Page</h1>
-    <p>This is my page for the web development class project.</p>
-    <p>Hello_World</p>
+    <h1>Baseball Jeopardy!</h1>
+    <table id="jeopardy-board">
+        <tr>
+            <th>Team Mascots</th>
+            <th>The Old Days</th>
+            <th>Stats</th>
+            <th>Nicknames</th>
+            <th>Baseball Movies</th>
+        </tr>
+        <tr>
+            <td>$100</td>
+            <td>$100</td>
+            <td>$100</td>
+            <td>$100</td>
+            <td>$100</td>
+        </tr>
+        <tr>
+            <td>$200</td>
+            <td>$200</td>
+            <td>$200</td>
+            <td>$200</td>
+            <td>$200</td>
+        </tr>
+        <tr>
+            <td>$300</td>
+            <td>$300</td>
+            <td>$300</td>
+            <td>$300</td>
+            <td>$300</td>
+        </tr>
+        <tr>
+            <td>$400</td>
+            <td>$400</td>
+            <td>$400</td>
+            <td>$400</td>
+            <td>$400</td>
+        </tr>
+        <tr>
+            <td>$500</td>
+            <td>$500</td>
+            <td>$500</td>
+            <td>$500</td>
+            <td>$500</td>
+        </tr>
+    </table>
+    <div id="score">Score: $0</div>
+    <div id="modal">
+        <div class="modal-content">
+            <p id="question"></p>
+            <input type="text" id="answer-input" placeholder="Your answer">
+            <button id="submit-answer">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        const jeopardyData = {
+            "Team Mascots": {
+                100: { question: "The mascot of the baseball team that plays in Detroit", answer: "Tigers"},
+                200: { question: "The former mascot of the franchise currently known as the Washington Nationals", answer: "Expos"},
+                300: { question: "This mascot has been around for a long time, some of its cities are Philadelphia, Kansas City, and Las Vegas", answer: "Athletics"},
+                400: { question: "One of the most recent expansion teams in the MLB, this now shortened mascot was changed in 2007", answer: "Devil Rays"},
+                500: { question: "The oldest continuous MLB franchise mascot", answer: "Braves"}
+            },
+            "The Old Days": {
+                100: { question: "The award named after the winningest pitcher of the 1900s decade, with 230 wins between 1900-1909", answer: "Cy Young"},
+                200: { question: "Babe Ruth's original position when he started his Major League career in 1914", answer: "Pitcher"},
+                300: { question: "Protective gear that became mandatory after Ray Chapman was hit in the head and killed in 1920", answer: "Helmet"},
+                400: { question: "The year the Chicago Cubs last won the World Series before their 108-year drought (ended within the last 10 years)", answer: "1908"},
+                500: { question: "A Civil War officer long thought to have created the game of baseball", answer: "Abner Doubleday"}
+            },
+            "Stats": {
+                100: { question: "This stat measures the number of runs a pitcher gives up per nine innings", answer: "ERA"},
+                200: { question: "This stat measures the percent of the time a hitter reaches base safely", answer: "OBP"},
+                300: { question: "Barry Bonds is the MLB all time leader in this stat with 688 (NOT HOMERUNS)", answer: "IBB"},
+                400: { question: "This stat (which can be used for both pitchers and hitters) is a measure of luck", answer: "BABIP"},
+                500: { question: "This stat measures how productive a hitter is expected to be when they make contact with the ball", answer: "xwOBAcon"}
+            },
+            "Nicknames": {
+                100: { question: "George Herman ___ Ruth is often regarded as the GOAT of baseball", answer: "Babe"},
+                200: { question: "Leroy ___ Paige was a pioneer in the Negro Leagues and pitched in MLB at age 46", answer: "Satchel"},
+                300: { question: "Pablo ___ Sandoval was nicknamed after an animated movie franchise about a fighting black and white mammal", answer: "Diamond"},
+                400: { question: "___ Joe Jackson was banned for his part in a gambling scandal in 1919", answer: "Shoeless"},
+                500: { question: "Mordecai ___ Brown lost a digit in a childhood farming accident", answer: "Three-Fingered"}
+            },
+            "Baseball Movies": {
+                100: { question: "This kids movie brought us iconic quotes such as 'You're killing me Smalls!'", answer: "The Sandlot"},
+                200: { question: "Actor James Earl Jones makes an iconic appearance in this movie about the 1919 Chicago 'Black Sox'", answer: "Field of Dreams"},
+                300: { question: "This nerdy film portrays the financial strategy of the early 2000s Oakland A's", answer: "Moneyball"},
+                400: { question: "12 year old Henry Rowengartner discovers his superpower and plays for the Chicago Cubs in this movie", answer: "Rookie of the Year"},
+                500: { question: "This number-named movie follows the story of a trailblazer and the greatest MLB player to come out of UCLA", answer: "42"}
+            }
+        };
+
+        let score = 0;
+        const scoreElement = document.getElementById('score');
+        const modal = document.getElementById('modal');
+        const questionElement = document.getElementById('question');
+        const answerInput = document.getElementById('answer-input');
+        const submitButton = document.getElementById('submit-answer');
+        let currentQuestion = null;
+
+        document.querySelectorAll('#jeopardy-board td').forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        function handleCellClick(event) {
+            const cell = event.target;
+            const value = parseInt(cell.textContent.replace('$', ''));
+            const category = cell.closest('tr').cells[cell.cellIndex].closest('table').rows[0].cells[cell.cellIndex].textContent;
+
+            currentQuestion = jeopardyData[category][value];
+            questionElement.textContent = currentQuestion.question;
+            modal.style.display = 'block';
+            answerInput.value = '';
+            cell.style.backgroundColor = '#004080';
+            cell.style.pointerEvents = 'none';
+        }
+
+        submitButton.addEventListener('click', () => {
+            const userAnswer = answerInput.value.trim().toLowerCase();
+            const correctAnswer = currentQuestion.answer.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                score += parseInt(currentQuestion.value);
+                alert('Correct!');
+            } else {
+                score -= parseInt(currentQuestion.value);
+                alert(`Sorry, the correct answer was: ${currentQuestion.answer}`);
+            }
+
+            scoreElement.textContent = `Score: $${score}`;
+            modal.style.display = 'none';
+        });
+
+        window.onclick = (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
 </body>
 </html>

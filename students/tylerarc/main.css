@@ -1,23 +1,58 @@
 
 
 h1{
-    color: navy;
+    display: flex;
+    justify-content: column;
+    color: white;
     font-family: "Copperplate"
 }
 
-p1{
+
+
+
+.Top_paragraph{
+    display:flex;
+    justify-content: center;
     color: violet;
+    text-align:center;
+    font-size: 20px;
+    border-style: dotted;
     font-family: "Copperplate" 
+
 }
 
-div.gallery {
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 180px;
-  }
 
-  img{
-    width: 100 px;
+
+img{
+    width: 150px;
     height: auto;
-  }
+}
+
+.album_covers {
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    flex-direction: row-reverse
+
+    
+}
+
+.Title_Row{
+    display: flex;
+    justify-content: center;
+    justify-content: space-between;
+    background-color: green;
+
+}
+
+.Spotify_link{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.Link_description{
+    color: Blue;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
